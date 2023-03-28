@@ -3,7 +3,7 @@
 
 ## Create React Native app
 
-- following [basic set up](https://reactnative.dev/docs/environment-setup) without expo
+following [basic set up](https://reactnative.dev/docs/environment-setup) without expo
 
 ### Setup the environment
 
@@ -37,7 +37,10 @@ Can be installed through SDK manager in Android Studio
 ### Creating a new application
 
 - remove a global `react-native-cli` package if installed to avoid unexpected issues
-- run `npx react-native@latest init AwesomeProject`
+- run  
+`npx react-native@0.70.7 init AwesomeProject`  
+(we used the version 0.70.7, it is the highest officially supported by Detox for now),  
+replace `Awesome Project` by your preferred project name
 
 ### Run the app
 
@@ -48,6 +51,8 @@ Can be installed through SDK manager in Android Studio
 `npx react-native run-android`
 
 ## Add Detox
+
+go to the project folder and all next steps do there (e.g. `cd AwesomeProject`)
 
 - install `jest` (according to Detox documentation the most popular testing framework for React Native)  
 `npm install "jest@^29" --save-dev`
@@ -79,12 +84,12 @@ the above steps were not enough to run Detox on an android emulator, so we had t
 buildscript {
   ext {
     ...
-    kotlinVersion = '1.7.20'
+    kotlinVersion = "1.7.20"
   }
   ...
   dependencies {
     ...
-    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion')
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
   }
 }
 ...
@@ -109,10 +114,11 @@ android {
     testBuildType System.getProperty('testBuildType', 'debug')
     testInstrumentationRunner 'androidx.test.runner.AndroidJunitRunner'
     ...
+    }
     buildTypes {
       release {
         ...
-        proguardFile '${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro'
+        proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
       }
     }
     ...
@@ -121,11 +127,11 @@ android {
       implementation 'androidx.appcompat:appcompat:1.1.0'
       ...
     }
-  }
 }
 ```
 
-- add auxiliary android test
+- add auxiliary android test  
+on the path `android/app/src/androidTest/java/com/<your.package>/DetoxTest.java`
 
 ```java
 package com.<your.package>; // (1)
@@ -227,4 +233,4 @@ there will be probably an error similar to this:
   …
 ```
 
-$\color{red}red~text~hyphens~for~separation$
+$\color{red}most~problems~I~experienced~was~caused~by~wrong~cases~of~letters~and~quotes~vs~double~quotes$
